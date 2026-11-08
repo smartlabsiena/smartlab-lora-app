@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Smartlab LoRa: stringhe delle aggiunte Smartlab (italiano). -->
+<resources>
+    <string name="tab_emergency">Emergenza</string>
+    <string name="tab_team">Squadra</string>
+    <string name="tab_kit">Kit</string>
+    <string name="emergency_title">Emergenza</string>
+    <string name="emergency_link_lora">LoRa</string>
+    <string name="emergency_link_bluetooth">Bluetooth</string>
+    <string name="emergency_link_wifi">Wi-Fi</string>
+    <string name="emergency_state_connected">Collegata</string>
+    <string name="emergency_state_connecting">Collegamento…</string>
+    <string name="emergency_state_disconnected">Nessuna scheda collegata</string>
+    <string name="emergency_state_sleeping">Scheda in pausa</string>
+    <string name="emergency_sos_label">SOS</string>
+    <string name="emergency_sos_hold">Tieni premuto 3 s</string>
+    <string name="emergency_coming_soon">In arrivo</string>
+    <string name="emergency_sos_dialog_title">Anteprima SOS</string>
+    <string name="emergency_sos_dialog_text">In questa versione il pulsante SOS non invia ancora nulla. Se sei in pericolo di vita chiama il 112 quando c’è copertura.</string>
+    <string name="emergency_radio_title">Radio</string>
+    <string name="emergency_radio_region">Regione</string>
+    <string name="emergency_radio_preset">Preset</string>
+    <string name="emergency_radio_battery">Batteria della scheda</string>
+    <string name="emergency_radio_board">Scheda</string>
+    <string name="emergency_battery_powered">Alimentata</string>
+    <string name="emergency_unknown">—</string>
+    <string name="emergency_region_unset">Regione non impostata: la scheda non trasmette finché non ne scegli una.</string>
+    <string name="emergency_manage_links">Gestisci collegamenti</string>
+    <string name="emergency_settings">Impostazioni</string>
+    <string name="emergency_ok">OK</string>
+    <string name="emergency_disclaimer">Se sei in pericolo di vita chiama il 112 quando c’è copertura. L’app non garantisce che un SOS arrivi a qualcuno.</string>
+    <string name="emergency_quick_title">Messaggi rapidi</string>
+    <string name="emergency_quick_edit">Modifica</string>
+    <string name="emergency_quick_empty">Nessun messaggio rapido. Aggiungi quelli che ti servono.</string>
+    <string name="emergency_quick_send_title">Inviare questo messaggio?</string>
+    <string name="emergency_quick_send_text">Verrà inviato a tutti sul canale principale.</string>
+    <string name="emergency_quick_send">Invia</string>
+    <string name="emergency_cancel">Annulla</string>
+</resources>

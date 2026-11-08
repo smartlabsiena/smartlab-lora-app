@@ -19,11 +19,11 @@ package org.meshtastic.core.navigation
 import androidx.navigation3.runtime.NavKey
 import org.jetbrains.compose.resources.StringResource
 import org.meshtastic.core.resources.Res
-import org.meshtastic.core.resources.bottom_nav_settings
-import org.meshtastic.core.resources.connect
 import org.meshtastic.core.resources.map
 import org.meshtastic.core.resources.messages
-import org.meshtastic.core.resources.nodes
+import org.meshtastic.core.resources.tab_emergency
+import org.meshtastic.core.resources.tab_kit
+import org.meshtastic.core.resources.tab_team
 
 /**
  * Shared top-level destinations for the application shell.
@@ -32,11 +32,13 @@ import org.meshtastic.core.resources.nodes
  * and Desktop navigation shells.
  */
 enum class TopLevelDestination(val label: StringResource, val route: Route) {
-    Messages(Res.string.messages, ContactsRoute.Contacts),
-    Nodes(Res.string.nodes, NodesRoute.Nodes),
+    // Smartlab LoRa: the Emergency home comes first (it is the old Connections destination), then the team (nodes),
+    // map and messages, then the Kit. Settings is no longer a tab: it opens from the gear on the Emergency home.
+    Connect(Res.string.tab_emergency, ConnectionsRoute.Connections()),
+    Nodes(Res.string.tab_team, NodesRoute.Nodes),
     Map(Res.string.map, MapRoute.Map()),
-    Settings(Res.string.bottom_nav_settings, SettingsRoute.Settings()),
-    Connect(Res.string.connect, ConnectionsRoute.Connections()),
+    Messages(Res.string.messages, ContactsRoute.Contacts),
+    Kit(Res.string.tab_kit, KitRoute.Kit),
     ;
 
     companion object {

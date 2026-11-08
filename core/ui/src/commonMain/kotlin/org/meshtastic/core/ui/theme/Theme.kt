@@ -133,7 +133,12 @@ fun AppTheme(
     // When a device is on event firmware (and the event theme isn't opted out), swap the whole typescale to the event
     // typeface. Null everywhere else (desktop, F-Droid, non-event, opted out) → default typography.
     val eventFonts = LocalEventTheme.current?.fonts
-    val typography = remember(eventFonts) { eventFonts?.let { AppTypography.withEventFonts(it) } ?: AppTypography }
+    // Smartlab LoRa: the brand typefaces (Barlow) are the default look; an event edition still overrides them.
+    val brandFonts = rememberBrandFonts()
+    val typography =
+        remember(eventFonts, brandFonts) {
+            eventFonts?.let { AppTypography.withEventFonts(it) } ?: AppTypography.withBrandFonts(brandFonts)
+        }
 
     // Downloadable (Google) fonts referenced only through the theme's Typography are NOT auto-fetched during text
     // layout — Compose silently renders the fallback. Preloading them into the font cache is the documented way to make

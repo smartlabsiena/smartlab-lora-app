@@ -19,11 +19,11 @@ package org.meshtastic.core.ui.navigation
 import org.jetbrains.compose.resources.DrawableResource
 import org.meshtastic.core.navigation.TopLevelDestination
 import org.meshtastic.core.resources.Res
+import org.meshtastic.core.resources.ic_emergency
 import org.meshtastic.core.resources.ic_forum
+import org.meshtastic.core.resources.ic_kit
 import org.meshtastic.core.resources.ic_map
 import org.meshtastic.core.resources.ic_nodes
-import org.meshtastic.core.resources.ic_settings
-import org.meshtastic.core.resources.ic_wifi
 
 /** Maps a shared [TopLevelDestination] to its corresponding icon [DrawableResource]. */
 val TopLevelDestination.icon: DrawableResource
@@ -32,6 +32,6 @@ val TopLevelDestination.icon: DrawableResource
             TopLevelDestination.Messages -> Res.drawable.ic_forum
             TopLevelDestination.Nodes -> Res.drawable.ic_nodes
             TopLevelDestination.Map -> Res.drawable.ic_map
-            TopLevelDestination.Settings -> Res.drawable.ic_settings
-            TopLevelDestination.Connect -> Res.drawable.ic_wifi
+            TopLevelDestination.Kit -> Res.drawable.ic_kit
+            TopLevelDestination.Connect -> Res.drawable.ic_emergency
         }

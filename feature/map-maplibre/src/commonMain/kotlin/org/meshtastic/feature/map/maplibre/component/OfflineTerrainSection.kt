@@ -45,6 +45,7 @@ import org.meshtastic.core.resources.Res
 import org.meshtastic.core.resources.delete
 import org.meshtastic.core.resources.map_cache_size
 import org.meshtastic.core.resources.map_cache_tiles
+import org.meshtastic.core.resources.map_offline_create_failed
 import org.meshtastic.core.resources.map_select_download_region
 import org.meshtastic.core.resources.map_start_download
 import org.meshtastic.core.resources.map_tile_download_estimate
@@ -171,6 +172,14 @@ private fun TerrainDownloadControls(
             modifier = Modifier.padding(vertical = 8.dp),
         ) {
             Text(text = stringResource(Res.string.map_start_download))
+        }
+
+        if (downloadState is TerrainDownloadState.Failed) {
+            Text(
+                text = stringResource(Res.string.map_offline_create_failed),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.error,
+            )
         }
 
         if (downloadState is TerrainDownloadState.InProgress) {

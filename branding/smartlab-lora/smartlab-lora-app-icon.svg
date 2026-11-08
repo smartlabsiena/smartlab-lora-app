@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Smart Lab Siena LoRa app icon</title>
+  <desc id="desc">A Siena-inspired tower with radio waves and connected nodes on a deep navy field.</desc>
+  <rect width="512" height="512" rx="112" fill="#142B3A"/>
+  <g fill="none" stroke="#F5E9D8" stroke-linecap="round" stroke-width="13">
+    <path d="M170 171c19-37 49-56 86-56s67 19 86 56"/>
+    <path d="M198 185c13-21 32-32 58-32s45 11 58 32"/>
+  </g>
+  <circle cx="256" cy="181" r="10" fill="#E88963"/>
+  <g stroke="#E88963" stroke-width="10" stroke-linecap="round" fill="none">
+    <path d="M154 238 205 260M358 238l-51 22M156 337l53-18M356 337l-53-18"/>
+  </g>
+  <g fill="#63D4C6">
+    <circle cx="146" cy="235" r="12"/><circle cx="366" cy="235" r="12"/>
+    <circle cx="147" cy="340" r="12"/><circle cx="365" cy="340" r="12"/>
+  </g>
+  <path fill="#D87855" d="M224 237h64v166h25v23H199v-23h25z"/>
+  <path fill="#F5E9D8" d="M214 220h18v22h-18zm33 0h18v22h-18zm33 0h18v22h-18z"/>
+  <path fill="#F5E9D8" d="M244 278h24v34h-24zm0 55h24v34h-24z"/>
+  <path fill="#E88963" d="M210 426h92v12h-92z"/>
+</svg>

@@ -34,7 +34,9 @@ import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 import org.meshtastic.core.common.state.LaunchOptions
 import org.meshtastic.core.navigation.ConnectionsRoute
+import org.meshtastic.core.navigation.ContactsRoute
 import org.meshtastic.core.navigation.NodesRoute
+import org.meshtastic.core.navigation.SettingsRoute
 import org.meshtastic.core.resources.Res
 import org.meshtastic.core.resources.cancel
 import org.meshtastic.core.resources.connect
@@ -50,6 +52,7 @@ import org.meshtastic.feature.connections.NO_DEVICE_SELECTED
 import org.meshtastic.feature.connections.ScannerViewModel
 import org.meshtastic.feature.connections.blePairingPinFor
 import org.meshtastic.feature.connections.ui.ConnectionsScreen
+import org.meshtastic.feature.connections.ui.EmergencyScreen
 
 /** Navigation graph for for the top level ConnectionsScreen - [ConnectionsRoute.Connections]. */
 fun EntryProviderScope<NavKey>.connectionsGraph(backStack: NavBackStack<NavKey>) {
@@ -91,6 +94,17 @@ fun EntryProviderScope<NavKey>.connectionsGraph(backStack: NavBackStack<NavKey>)
             )
         }
 
+        // Smartlab LoRa: the Connections tab is now the Emergency home. The original device list and connection
+        // management screen stays reachable from it (ConnectionsRoute.Devices).
+        EmergencyScreen(
+            scanModel = scanModel,
+            onOpenDevices = { backStack.add(ConnectionsRoute.Devices) },
+            onOpenSettings = { backStack.add(SettingsRoute.Settings()) },
+            onEditQuickMessages = { backStack.add(ContactsRoute.QuickChat) },
+        )
+    }
+    entry<ConnectionsRoute.Devices> {
+        val scanModel = koinViewModel<ScannerViewModel>()
         ConnectionsScreen(
             scanModel = scanModel,
             onClickNodeChip = { id -> backStack.add(NodesRoute.NodeDetail(id)) },

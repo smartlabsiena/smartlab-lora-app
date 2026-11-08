@@ -78,6 +78,8 @@ import org.meshtastic.feature.map.maplibre.geojson.ClusterMember
 import org.meshtastic.feature.map.maplibre.geojson.rememberFeatureSource
 import org.meshtastic.feature.map.maplibre.layers.CustomLayer
 import org.meshtastic.feature.map.maplibre.layers.CustomLayers
+import org.meshtastic.feature.map.areas.EmergencyAreaFocus
+import org.meshtastic.feature.map.maplibre.layers.EmergencyAreaLayers
 import org.meshtastic.feature.map.maplibre.layers.MapOverlayLayers
 import org.meshtastic.feature.map.maplibre.layers.NodeLayers
 import org.meshtastic.feature.map.maplibre.layers.RasterBasemapLayer
@@ -154,6 +156,8 @@ fun rememberMeshMapState(
             MapNodePolicy.visibleNodes(nodes, filterState, nowSeconds, myNodeInfo?.myNodeNum)
         }
 
+    val focusedArea by EmergencyAreaFocus.area.collectAsStateWithLifecycle()
+
     InstallRadarSmoothing()
     val mapState =
         rememberMapState(baseStyle = basemap.toBaseStyle(), initialCameraPosition = initialCameraPosition) {
@@ -166,12 +170,17 @@ fun rememberMeshMapState(
                 RasterBasemapLayer(basemap)
             }
             MapOverlayLayers(overlays, layerOpacity)
-            TerrainLayers(
-                viewportBounds = viewportBounds,
-                zoom = state.cameraPosition.zoom,
-                displayUnits = displayUnits,
-            )
+            // Smartlab LoRa: the downloaded terrain follows the "Hillshade" checkbox, so unticking it really hides it.
+            if (overlays.any { it is MapOverlay.Hillshade }) {
+                TerrainLayers(
+                    viewportBounds = viewportBounds,
+                    zoom = state.cameraPosition.zoom,
+                    displayUnits = displayUnits,
+                )
+            }
             CustomLayers(customLayers, layerOpacity)
+            // Smartlab LoRa: only the emergency area picked from the Kit, drawn from coordinates embedded in the app.
+            focusedArea?.let { EmergencyAreaLayers(it) }
 
             if (filterState.showWaypoints) {
                 WaypointLayers(waypoints = waypoints.values, onWaypointClick = onWaypointClick)
@@ -198,6 +207,17 @@ fun rememberMeshMapState(
     // `remember` in there is lost whenever the user changes basemap — which would reset FrameOnce's latch and
     // re-frame the mesh over wherever they had panned to.
     FrameOnce(enabled = frameOnNodes, nodes = visibleNodes, mapState = mapState)
+
+    // Smartlab LoRa: bring the camera to the emergency area picked from the Kit.
+    LaunchedEffect(focusedArea) {
+        val area = focusedArea ?: return@LaunchedEffect
+        val lat = area.lat ?: return@LaunchedEffect
+        val lon = area.lon ?: return@LaunchedEffect
+        mapState.animateCamera(
+            CameraUpdate(center = Position(longitude = lon, latitude = lat), zoom = EMERGENCY_AREA_ZOOM),
+            CameraAnimation.Ease.Standard,
+        )
+    }
 
     // Follows position whenever tracking is on; touches bearing only when the caller asks for it, so a user who
     // has rotated the map is not straightened out behind their back.
@@ -437,3 +457,5 @@ private fun BoxCornerMarker(corner: Position?) {
  * a dense mesh does not blow the image budget on nodes well off screen.
  */
 private const val CHIP_VIEW_PADDING = 0.5
+
+private const val EMERGENCY_AREA_ZOOM = 16.0

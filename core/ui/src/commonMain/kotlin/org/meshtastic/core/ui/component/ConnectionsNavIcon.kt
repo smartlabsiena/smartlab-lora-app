@@ -31,10 +31,9 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import org.meshtastic.core.model.ConnectionState
 import org.meshtastic.core.model.DeviceType
 import org.meshtastic.core.ui.icon.Bluetooth
-import org.meshtastic.core.ui.icon.Device
 import org.meshtastic.core.ui.icon.DeviceSleep
+import org.meshtastic.core.ui.icon.Home
 import org.meshtastic.core.ui.icon.MeshtasticIcons
-import org.meshtastic.core.ui.icon.NoDevice
 import org.meshtastic.core.ui.icon.Reconnecting
 import org.meshtastic.core.ui.icon.Usb
 import org.meshtastic.core.ui.icon.Wifi
@@ -86,14 +85,14 @@ private fun getTint(connectionState: ConnectionState): Color = when (connectionS
 @Composable
 fun getIconPair(connectionState: ConnectionState, deviceType: DeviceType? = null): Pair<ImageVector, ImageVector?> =
     when (connectionState) {
-        ConnectionState.Disconnected -> MeshtasticIcons.NoDevice to null
+        ConnectionState.Disconnected -> MeshtasticIcons.Home to null
 
-        ConnectionState.DeviceSleep -> MeshtasticIcons.Device to MeshtasticIcons.DeviceSleep
+        ConnectionState.DeviceSleep -> MeshtasticIcons.Home to MeshtasticIcons.DeviceSleep
 
-        ConnectionState.Connecting -> MeshtasticIcons.Device to MeshtasticIcons.Reconnecting
+        ConnectionState.Connecting -> MeshtasticIcons.Home to MeshtasticIcons.Reconnecting
 
         else ->
-            MeshtasticIcons.Device to
+            MeshtasticIcons.Home to
                 when (deviceType) {
                     DeviceType.BLE -> MeshtasticIcons.Bluetooth
                     DeviceType.TCP -> MeshtasticIcons.Wifi

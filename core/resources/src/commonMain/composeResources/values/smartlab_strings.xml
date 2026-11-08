@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Smartlab LoRa: strings of the Smartlab additions (default language: English). Italian in values-it. -->
+<resources>
+    <string name="tab_emergency">Emergency</string>
+    <string name="tab_team">Team</string>
+    <string name="tab_kit">Kit</string>
+    <string name="emergency_title">Emergency</string>
+    <string name="emergency_link_lora">LoRa</string>
+    <string name="emergency_link_bluetooth">Bluetooth</string>
+    <string name="emergency_link_wifi">Wi-Fi</string>
+    <string name="emergency_state_connected">Connected</string>
+    <string name="emergency_state_connecting">Connecting…</string>
+    <string name="emergency_state_disconnected">No board connected</string>
+    <string name="emergency_state_sleeping">Board sleeping</string>
+    <string name="emergency_sos_label">SOS</string>
+    <string name="emergency_sos_hold">Hold for 3 s</string>
+    <string name="emergency_coming_soon">Coming soon</string>
+    <string name="emergency_sos_dialog_title">SOS preview</string>
+    <string name="emergency_sos_dialog_text">In this version the SOS button does not send anything yet. If your life is in danger, call 112 when there is coverage.</string>
+    <string name="emergency_radio_title">Radio</string>
+    <string name="emergency_radio_region">Region</string>
+    <string name="emergency_radio_preset">Preset</string>
+    <string name="emergency_radio_battery">Board battery</string>
+    <string name="emergency_radio_board">Board</string>
+    <string name="emergency_battery_powered">Powered</string>
+    <string name="emergency_unknown">—</string>
+    <string name="emergency_region_unset">Region not set: the board does not transmit until you choose one.</string>
+    <string name="emergency_manage_links">Manage connections</string>
+    <string name="emergency_settings">Settings</string>
+    <string name="emergency_ok">OK</string>
+    <string name="emergency_disclaimer">If your life is in danger, call 112 when there is coverage. The app cannot guarantee that an SOS reaches anyone.</string>
+    <string name="emergency_quick_title">Quick messages</string>
+    <string name="emergency_quick_edit">Edit</string>
+    <string name="emergency_quick_empty">No quick messages yet. Add the ones you need.</string>
+    <string name="emergency_quick_send_title">Send this message?</string>
+    <string name="emergency_quick_send_text">It will be sent to everyone on the primary channel.</string>
+    <string name="emergency_quick_send">Send</string>
+    <string name="emergency_cancel">Cancel</string>
+</resources>

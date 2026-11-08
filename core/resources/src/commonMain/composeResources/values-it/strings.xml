@@ -132,7 +132,7 @@
     <string name="bluetooth_feature_config">Configurazione</string>
     <string name="bluetooth_feature_config_description">Gestisci le impostazioni e i canali del dispositivo senza usare cavi.</string>
     <string name="bluetooth_feature_discovery">Ricerca</string>
-    <string name="bluetooth_feature_discovery_description">Trova e identifica dispositivi Meshtastic vicino a te.</string>
+    <string name="bluetooth_feature_discovery_description">Trova e identifica dispositivi Smartlab LoRa vicino a te.</string>
     <string name="bluetooth_permission">Bluetooth</string>
     <string name="bluetooth_scan_missing_permission">La scansione Bluetooth richiede autorizzazione. Concedi il permesso di cercare dispositivi vicini (o Posizione) per trovare i dispositivi.</string>
     <string name="bluetooth_scan_start_failed">La scansione Bluetooth non può essere avviata. Riprova o disattiva e riattiva il Bluetooth se il problema persiste.</string>
@@ -185,9 +185,9 @@
     <string name="chirpy_error_unknown">Oops! Abbiamo riscontrato alcune pesanti perdite di pacchetti o interferenze di segnale! 📡 Trasmettiamo nuovamente quella interrogazione e vediamo se possiamo passare.</string>
     <string name="chirpy_error_unsupported_flavor">Sto operando su una frequenza limitata su questa edizione dell'app! 🔌 Prova a usare una versione con integrazione completa AI Core.</string>
     <string name="chirpy_error_unsupported_platform">Oh no! La mia antenna non riesce a stabilire una connessione su questa piattaforma. 📡 Si prega di ricontrollare la compatibilità hardware!</string>
-    <string name="chirpy_intro">Ehi ciao! 📡 Sono Chirpy, il tuo assistente Meshtastic sul dispositivo! Posso aiutarti con impostazione iniziale, configurazione, risoluzione dei problemi e suggerimenti di rete mesh. Come posso aiutarti?</string>
+    <string name="chirpy_intro">Ehi ciao! 📡 Sono Chirpy, il tuo assistente Smartlab LoRa sul dispositivo! Posso aiutarti con impostazione iniziale, configurazione, risoluzione dei problemi e suggerimenti di rete mesh. Come posso aiutarti?</string>
     <string name="chirpy_ready">Chiedi a Chirpy</string>
-    <string name="chirpy_search_placeholder">Chiedi informazioni su Meshtastic…</string>
+    <string name="chirpy_search_placeholder">Chiedi informazioni su Smartlab LoRa…</string>
     <string name="chirpy_suggested_pages_help">Ecco alcune pagine di documentazione che potrebbero aiutare:</string>
     <string name="chirpy_thinking">Chirpy sta instradando attraverso la mesh…📡</string>
     <string name="choose_contrast">Livello contrasto</string>
@@ -323,11 +323,11 @@
     <string name="desc_node_filter_clear">elimina filtro nodi</string>
     <string name="description">Descrizione</string>
     <!-- DESKTOP -->
-    <string name="desktop_notification_title">Meshtastic</string>
+    <string name="desktop_notification_title">Smartlab LoRa</string>
     <string name="desktop_tray_quit">Esci</string>
-    <string name="desktop_tray_show">Mostra Meshtastic</string>
-    <string name="desktop_tray_tooltip">Meshtastic Desktop</string>
-    <string name="desktop_update_available_message">Meshtastic Desktop %1$s è pronto per il download.</string>
+    <string name="desktop_tray_show">Mostra Smartlab LoRa</string>
+    <string name="desktop_tray_tooltip">Smartlab LoRa Desktop</string>
+    <string name="desktop_update_available_message">Smartlab LoRa Desktop %1$s è pronto per il download.</string>
     <string name="desktop_update_available_title">Aggiornamento dell'app disponibile</string>
     <string name="desktop_update_download">Scarica l'aggiornamento %1$s</string>
     <string name="details">Dettagli</string>
@@ -361,7 +361,7 @@
     <!-- DISCOVERY -->
     <string name="discovery_analysing_results">Analisi dei risultati</string>
     <string name="discovery_cancelling_scan">Annullamento della scansione</string>
-    <string name="discovery_connection_warning">Non connesso. Connettiti a un dispositivo Meshtastic per iniziare la scansione.</string>
+    <string name="discovery_connection_warning">Non connesso. Connettiti a un dispositivo Smartlab LoRa per iniziare la scansione.</string>
     <string name="discovery_delete_session">Elimina sessione</string>
     <string name="discovery_delete_session_confirm">Vuoi davvero eliminare questa sessione di discovery? L'azione non può essere annullata.</string>
     <string name="discovery_dwell_minutes">%1$d min</string>
@@ -379,7 +379,7 @@
     <string name="discovery_lora_presets_description">Seleziona uno o più preset da scansionare</string>
     <string name="discovery_map">Mappa discovery</string>
     <string name="discovery_not_connected">Non connesso</string>
-    <string name="discovery_not_connected_description">Connettiti a un dispositivo Meshtastic per iniziare la scansione.</string>
+    <string name="discovery_not_connected_description">Connettiti a un dispositivo Smartlab LoRa per iniziare la scansione.</string>
     <string name="discovery_preparing">Preparazione della scansione</string>
     <string name="discovery_preset_home_label">%1$s (Home)</string>
     <string name="discovery_reconnecting">Riconnessione su %1$s</string>
@@ -439,7 +439,7 @@
     <string name="distance_filters">Filtri distanza</string>
     <string name="distance_filters_description">Filtra l'elenco dei nodi e la mappa mesh in base alla prossimità al tuo telefono.</string>
     <string name="distance_measurements">Misure di distanza</string>
-    <string name="distance_measurements_description">Visualizza la distanza tra il telefono e gli altri nodi Meshtastic con posizione attiva.</string>
+    <string name="distance_measurements_description">Visualizza la distanza tra il telefono e gli altri nodi Smartlab LoRa con posizione attiva.</string>
     <!-- DOC -->
     <string name="doc_clear_search">Azzera ricerca</string>
     <string name="doc_keywords_app_functions">system ai,gemini,assistente,funzioni,automazione,voce</string>
@@ -526,7 +526,7 @@
     <string name="external_notification_config">Configurazione Notifiche Esterne</string>
     <string name="factory_reset">Ripristina impostazioni di fabbrica</string>
     <string name="fair">Discreto</string>
-    <string name="fallback_node_name">Meshtastic %1$s</string>
+    <string name="fallback_node_name">SmartLab %1$s</string>
     <string name="favorite">Preferito</string>
     <string name="favorite_add">Aggiungere '%1$s' ai nodi preferiti?</string>
     <string name="favorite_remove">Rimuovere '%1$s' dai nodi preferiti?</string>
@@ -547,7 +547,7 @@
     <!-- FIRMWARE -->
     <string name="firmware">Firmware</string>
     <string name="firmware_edition">Edizione Firmware</string>
-    <string name="firmware_event_ended_banner">%1$s è terminato. Torna al firmware Meshtastic standard per ripristinare le funzioni normali.</string>
+    <string name="firmware_event_ended_banner">%1$s è terminato. Torna al firmware standard per ripristinare le funzioni normali.</string>
     <string name="firmware_event_ended_button">Aggiorna il firmware</string>
     <string name="firmware_gate_title">Aggiornamento del firmware necessario</string>
     <string name="firmware_gate_update">Aggiorna il firmware</string>
@@ -601,9 +601,9 @@
     <string name="firmware_update_node_info_missing">Mancano le informazioni utente del nodo.</string>
     <string name="firmware_update_not_found_in_release">Impossibile trovare il firmware per %1$s nelle release.</string>
     <string name="firmware_update_notification_android">%1$s è installato. È disponibile la versione stabile %2$s. Apri Aggiornamenti firmware quando vuoi.</string>
-    <string name="firmware_update_notification_flasher">%1$s è installato. È disponibile la versione stabile %2$s. Apri Meshtastic Flasher per aggiornare questo hardware.</string>
+    <string name="firmware_update_notification_flasher">%1$s è installato. È disponibile la versione stabile %2$s. Apri l'app Smartlab LoRa per aggiornare questo hardware.</string>
     <string name="firmware_update_open">Apri Aggiornamenti firmware</string>
-    <string name="firmware_update_open_flasher">Apri Meshtastic Flasher</string>
+    <string name="firmware_update_open_flasher">Apri il programma di aggiornamento</string>
     <string name="firmware_update_ota_failed">Aggiornamento OTA non riuscito: %1$s</string>
     <string name="firmware_update_ota_unsupported_reason">Il loader OTA di questo dispositivo ha rifiutato il metodo di aggiornamento richiesto: %1$s</string>
     <string name="firmware_update_rebooting">Riavvio in DFU...</string>
@@ -748,7 +748,7 @@
     <string name="library_count">%1$d librerie</string>
     <!-- LICENSED -->
     <string name="licensed_amateur_radio">Radioamatore con licenza (Ham)</string>
-    <string name="licensed_amateur_radio_text">Abilitare questa opzione disabilita la crittografia e non è compatibile con la rete Meshtastic predefinita.</string>
+    <string name="licensed_amateur_radio_text">Abilitare questa opzione disabilita la crittografia e non è compatibile con la rete predefinita.</string>
     <!-- LIVE -->
     <string name="live_update_direct">Diretto</string>
     <string name="live_update_distance">distante %1$s</string>
@@ -908,9 +908,9 @@
     <string name="mesh_map_location">Posizione sulla mappa della Mesh</string>
     <string name="mesh_map_location_description">Abilita l'indicatore blu per il tuo telefono sulla mappa della mesh.</string>
     <!-- MESHTASTIC -->
-    <string name="meshtastic">Meshtastic</string>
+    <string name="meshtastic">Smartlab LoRa</string>
     <string name="meshtastic_alerts_notifications">Notifiche di allarme</string>
-    <string name="meshtastic_app_name">Meshtastic</string>
+    <string name="meshtastic_app_name">Smartlab LoRa</string>
     <string name="meshtastic_broadcast_notifications">Notifiche di messaggi broadcast</string>
     <string name="meshtastic_low_battery_notifications">Notifica di batteria scarica</string>
     <string name="meshtastic_low_battery_temporary_remote_notifications">Notifiche batteria scarica (nodi preferiti)</string>
@@ -1081,7 +1081,7 @@
     <string name="notes">Note</string>
     <!-- NOTIFICATION -->
     <string name="notification_group_mesh">Mesh</string>
-    <string name="notification_permissions_description">Meshtastic utilizza le notifiche per tenerti aggiornato su nuovi messaggi e altri eventi importanti. È possibile aggiornare i permessi di notifica in qualsiasi momento dalle impostazioni.</string>
+    <string name="notification_permissions_description">Smartlab LoRa utilizza le notifiche per tenerti aggiornato su nuovi messaggi e altri eventi importanti. È possibile aggiornare i permessi di notifica in qualsiasi momento dalle impostazioni.</string>
     <!-- NOTIFICATIONS -->
     <string name="notifications_for_channel_and_direct_messages">Notifiche per i canali e i messaggi diretti.</string>
     <string name="notifications_for_low_battery_alerts">Notifiche per gli avvisi di batteria scarica per il dispositivo collegato.</string>
@@ -1103,7 +1103,7 @@
     <string name="open_bluetooth_settings">Apri le impostazioni Bluetooth</string>
     <string name="open_compass">Apri bussola</string>
     <string name="open_settings">Apri impostazioni</string>
-    <string name="open_source_description">Meshtastic è costruito con le seguenti librerie open source. Tocca una libreria per visualizzare la sua licenza.</string>
+    <string name="open_source_description">Smartlab LoRa è costruito con le seguenti librerie open source. Tocca una libreria per visualizzare la sua licenza.</string>
     <string name="open_source_libraries">Librerie Open Source</string>
     <string name="open_wifi_settings">Apri le impostazioni Wi-Fi</string>
     <string name="options">Opzioni</string>
@@ -1134,10 +1134,10 @@
     <string name="paxcounter_config">Configurazione Paxcounter</string>
     <string name="periodic_position_broadcast">Trasmissione periodica della posizione</string>
     <!-- PERMISSION -->
-    <string name="permission_missing_31">Meshtastic ha bisogno dei permessi "Dispositivi nelle vicinanze" abilitati per trovare e connettersi ai dispositivi tramite Bluetooth. È possibile disabilitare quando non è in uso.</string>
+    <string name="permission_missing_31">Smartlab LoRa ha bisogno dei permessi "Dispositivi nelle vicinanze" abilitati per trovare e connettersi ai dispositivi tramite Bluetooth. È possibile disabilitare quando non è in uso.</string>
     <!-- PERMISSIONS -->
     <string name="phone_location">Posizione del telefono</string>
-    <string name="phone_location_description">Meshtastic utilizza la posizione del telefono per abilitare molte funzionalità. È possibile aggiornare i permessi riguardo la posizione in qualsiasi momento dalle impostazioni.</string>
+    <string name="phone_location_description">Smartlab LoRa utilizza la posizione del telefono per abilitare molte funzionalità. È possibile aggiornare i permessi riguardo la posizione in qualsiasi momento dalle impostazioni.</string>
     <string name="pin_selected">Pin</string>
     <string name="play">Riproduci</string>
     <plurals name="plurals_hours">
@@ -1398,7 +1398,7 @@
     <string name="skip">Ignora</string>
     <string name="slot">Slot</string>
     <string name="snr">SNR</string>
-    <string name="snr_definition">Rapporto segnale-rumore (Signal-to-Noise Ratio), una misura utilizzata nelle comunicazioni per quantificare il livello di un segnale desiderato rispetto al livello di rumore di fondo. In Meshtastic e in altri sistemi wireless, un SNR più elevato indica un segnale più chiaro che può migliorare l'affidabilità e la qualità della trasmissione dei dati.</string>
+    <string name="snr_definition">Rapporto segnale-rumore (Signal-to-Noise Ratio), una misura utilizzata nelle comunicazioni per quantificare il livello di un segnale desiderato rispetto al livello di rumore di fondo. In Smartlab LoRa e in altri sistemi wireless, un SNR più elevato indica un segnale più chiaro che può migliorare l'affidabilità e la qualità della trasmissione dei dati.</string>
     <string name="soil_moisture">Umidità del Suolo</string>
     <string name="soil_temperature">Temperatura Del Suolo</string>
     <string name="speed">Velocità</string>
@@ -1412,7 +1412,7 @@
     <string name="success">Operazione riuscita</string>
     <string name="super_deep_sleep_duration_seconds">Durata super deep sleep</string>
     <string name="supported">Supportato</string>
-    <string name="supported_by_community">Supportato dalla comunità Meshtastic</string>
+    <string name="supported_by_community">Realizzato da Smart Lab Siena</string>
     <string name="swipe_action_delete">Elimina</string>
     <string name="swipe_action_mute">Silenzia</string>
     <string name="swipe_action_unmute">Riattiva l'audio</string>

@@ -41,6 +41,9 @@ sealed interface ConnectionsRoute : Route {
     @Serializable data class Connections(val address: String? = null, val pin: String? = null) :
         ConnectionsRoute,
         Graph
+
+    /** The device list and connection management screen, opened from the Emergency home (Smartlab LoRa). */
+    @Serializable data object Devices : ConnectionsRoute
 }
 
 @Serializable
@@ -71,6 +74,15 @@ sealed interface MapRoute : Route {
         val tracerouteLogUuid: String? = null,
         val trackNodeNum: Int? = null,
     ) : MapRoute
+}
+
+/** Emergency kit (Smartlab LoRa): the Quaderno delle emergenze, family plan and checklists. */
+@Serializable
+sealed interface KitRoute : Route {
+    @Serializable data object Kit : KitRoute, Graph
+
+    /** One page of the kit, by its [id] (see the kit content list in the Android app). */
+    @Serializable data class Page(val id: String) : KitRoute
 }
 
 @Serializable

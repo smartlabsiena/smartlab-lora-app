@@ -270,15 +270,18 @@ private suspend fun OfflineStorage.downloadVisibleArea(target: OfflineMapTarget,
     val range = target.zoomRange()
 
     return safeCatching {
-        create(
-            OfflinePackDefinition.TilePyramid(
-                styleUrl = styleUrl,
-                bounds = bounds,
-                pixelRatio = pixelRatio,
-                minZoom = range.first.toDouble(),
-                maxZoom = range.last.toDouble(),
-            ),
-        )
+        val pack =
+            create(
+                OfflinePackDefinition.TilePyramid(
+                    styleUrl = styleUrl,
+                    bounds = bounds,
+                    pixelRatio = pixelRatio,
+                    minZoom = range.first.toDouble(),
+                    maxZoom = range.last.toDouble(),
+                ),
+            )
+        // Smartlab LoRa: "Start download" really starts it (upstream left the pack paused until the user pressed play).
+        resume(pack)
     }
         .onFailure { error -> Logger.w(error) { "Could not create an offline pack" } }
         .isSuccess

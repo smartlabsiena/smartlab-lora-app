@@ -34,10 +34,8 @@ import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 import org.meshtastic.app.BuildConfig
 import org.meshtastic.core.model.ConnectionState
-import org.meshtastic.core.model.DeviceAddress
 import org.meshtastic.core.model.service.LockdownState
 import org.meshtastic.core.model.util.TimeConstants
-import org.meshtastic.core.navigation.NodesRoute
 import org.meshtastic.core.navigation.TopLevelDestination
 import org.meshtastic.core.navigation.rememberMultiBackstack
 import org.meshtastic.core.repository.PlatformAnalytics
@@ -60,6 +58,9 @@ import org.meshtastic.feature.settings.navigation.rememberSettingsRadioConfigVie
 import org.meshtastic.feature.settings.navigation.settingsGraph
 import org.meshtastic.feature.settings.radio.channel.channelsGraph
 import org.meshtastic.feature.wifiprovision.navigation.wifiProvisionGraph
+
+import org.meshtastic.app.kit.kitEntries
+import org.meshtastic.core.ui.component.camoOverlay
 
 @Composable
 fun MainScreen() {
@@ -92,7 +93,7 @@ fun MainScreen() {
         MeshtasticNavigationSuite(
             multiBackstack = multiBackstack,
             uiViewModel = viewModel,
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize().camoOverlay(enabled = multiBackstack.currentTabRoute != TopLevelDestination.Map.route),
         ) {
             MeshtasticNavDisplay(
                 multiBackstack = multiBackstack,
@@ -108,6 +109,7 @@ fun MainScreen() {
                         },
                     )
                     mapGraph(backStack)
+                    kitEntries(backStack, onShowOnMap = { multiBackstack.navigateTopLevel(TopLevelDestination.Map.route) })
                     channelsGraph(backStack)
                     connectionsGraph(backStack)
                     discoveryGraph(backStack)
@@ -123,8 +125,9 @@ fun MainScreen() {
     }
 }
 
-private fun initialRoute(deviceAddress: String?): NavKey =
-    if (DeviceAddress.parse(deviceAddress) == null) TopLevelDestination.Connect.route else NodesRoute.Nodes
+// Smartlab LoRa: the app always opens on the Emergency home, whether or not a board is already paired.
+@Suppress("UnusedParameter")
+private fun initialRoute(deviceAddress: String?): NavKey = TopLevelDestination.Connect.route
 
 @Composable
 @Suppress("LongMethod", "CyclomaticComplexMethod")

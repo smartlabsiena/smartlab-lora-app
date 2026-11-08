@@ -151,7 +151,9 @@ class OfflineTerrainRepository(private val fileSystem: FileSystem, private val b
         _downloadState.value = null
         downloadJob = scope.launch {
             try {
-                download(bounds, maxZoom).collect { state -> _downloadState.value = state }
+                download(bounds, maxZoom).collect { state ->
+                    _downloadState.value = state
+                }
             } catch (e: IOException) {
                 // download() reports the extractor's and manifest's own failures as states; this is the
                 // pre-extraction disk work (clearing the previous region), which otherwise leaves the state stuck.

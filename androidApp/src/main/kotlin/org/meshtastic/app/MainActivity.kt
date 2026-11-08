@@ -30,10 +30,12 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.core.content.IntentCompat
 import androidx.core.net.toUri
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -171,11 +173,31 @@ class MainActivity : AppCompatActivity() {
                     // once we've decided whether to show the intro or the main screen.
                     ReportDrawnWhen { true }
 
-                    if (appIntroCompleted || launchOptions.skipOnboarding) {
-                        MainScreen()
-                    } else {
-                        val introViewModel = koinViewModel<IntroViewModel>()
-                        AppIntroductionScreen(onDone = { model.onAppIntroCompleted() }, viewModel = introViewModel)
+                    // Smartlab LoRa start screen: shown once per launch for a moment, then faded out.
+                    var showSplash by androidx.compose.runtime.saveable.rememberSaveable {
+                        androidx.compose.runtime.mutableStateOf(true)
+                    }
+                    androidx.compose.runtime.LaunchedEffect(Unit) {
+                        kotlinx.coroutines.delay(SPLASH_MILLIS)
+                        showSplash = false
+                    }
+
+                    androidx.compose.foundation.layout.Box(
+                        modifier = androidx.compose.ui.Modifier.fillMaxSize(),
+                    ) {
+                        if (appIntroCompleted || launchOptions.skipOnboarding) {
+                            MainScreen()
+                        } else {
+                            val introViewModel = koinViewModel<IntroViewModel>()
+                            AppIntroductionScreen(onDone = { model.onAppIntroCompleted() }, viewModel = introViewModel)
+                        }
+                        androidx.compose.animation.AnimatedVisibility(
+                            visible = showSplash,
+                            enter = androidx.compose.animation.EnterTransition.None,
+                            exit = androidx.compose.animation.fadeOut(androidx.compose.animation.core.tween(SPLASH_FADE_MILLIS)),
+                        ) {
+                            SmartlabSplash()
+                        }
                     }
                 }
             }
@@ -443,6 +465,8 @@ class MainActivity : AppCompatActivity() {
 
         /** The DUMP-guarded alias in the debug manifest. */
         const val AUTOMATION_LAUNCHER = "org.meshtastic.app.AutomationLauncher"
+        const val SPLASH_MILLIS = 1800L
+        const val SPLASH_FADE_MILLIS = 450
     }
 }
 
