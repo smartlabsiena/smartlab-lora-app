@@ -43,6 +43,11 @@ Servono JDK 21 e l'Android SDK. Dalla cartella del progetto:
 L'APK si trova in `androidApp/build/outputs/apk/fdroid/debug/`. Il nome del pacchetto è `it.smartlab.lora`
 (`it.smartlab.lora.fdroid.debug` per la build di debug).
 
+## Flasher web e wiki
+
+- **Wiki e documentazione:** [smartlabsiena.it/smartlab-lora](https://smartlabsiena.it/smartlab-lora): guide, profili delle schede e istruzioni d'uso.
+- **Flasher web:** [smartlabsiena.it/flasher](https://smartlabsiena.it/flasher): installa dal browser, via cavo USB, il firmware B.O.B. sulle schede supportate (da computer, con Chrome o Edge).
+
 ## Licenza e attribuzioni
 
 Software libero sotto licenza **GPL-3.0-or-later** (vedi `LICENSE`). Il progetto nasce da
