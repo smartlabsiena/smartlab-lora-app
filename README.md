@@ -51,7 +51,7 @@ Meshtastic e con il nostro firmware ([smartlab-lora-firmware](https://github.com
 Le intestazioni di copyright originali sono mantenute; le modifiche sono elencate in `SMARTLAB_NOTICE.md` e il README
 originale è in `README.meshtastic.md`.
 
-Meshtastic® è un marchio registrato di Meshtastic LLC; questo progetto non è affiliato né approvato da Meshtastic.
+Meshtastic® è un marchio registrato di Meshtastic LLC.
 
 Le indicazioni del Kit sono a scopo informativo: in caso di evento reale seguire sempre le disposizioni ufficiali del
 Comune e dei soccorritori.
