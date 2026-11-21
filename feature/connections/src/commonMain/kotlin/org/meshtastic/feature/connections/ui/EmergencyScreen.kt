@@ -51,6 +51,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -63,7 +64,9 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.onLongClick
 import androidx.compose.ui.semantics.role
@@ -82,13 +85,11 @@ import org.meshtastic.core.model.DeviceType
 import org.meshtastic.core.resources.Res
 import org.meshtastic.core.resources.emergency_battery_powered
 import org.meshtastic.core.resources.emergency_cancel
-import org.meshtastic.core.resources.emergency_coming_soon
 import org.meshtastic.core.resources.emergency_disclaimer
 import org.meshtastic.core.resources.emergency_link_bluetooth
 import org.meshtastic.core.resources.emergency_link_lora
 import org.meshtastic.core.resources.emergency_link_wifi
 import org.meshtastic.core.resources.emergency_manage_links
-import org.meshtastic.core.resources.emergency_ok
 import org.meshtastic.core.resources.emergency_quick_edit
 import org.meshtastic.core.resources.emergency_quick_empty
 import org.meshtastic.core.resources.emergency_quick_send
@@ -102,8 +103,19 @@ import org.meshtastic.core.resources.emergency_radio_region
 import org.meshtastic.core.resources.emergency_radio_title
 import org.meshtastic.core.resources.emergency_region_unset
 import org.meshtastic.core.resources.emergency_settings
-import org.meshtastic.core.resources.emergency_sos_dialog_text
-import org.meshtastic.core.resources.emergency_sos_dialog_title
+import org.meshtastic.core.resources.emergency_sos_active
+import org.meshtastic.core.resources.emergency_sos_cancel
+import org.meshtastic.core.resources.emergency_sos_countdown_text
+import org.meshtastic.core.resources.emergency_sos_countdown_title
+import org.meshtastic.core.resources.emergency_sos_failed
+import org.meshtastic.core.resources.emergency_sos_heard
+import org.meshtastic.core.resources.emergency_sos_need_board
+import org.meshtastic.core.resources.emergency_sos_no_channel
+import org.meshtastic.core.resources.emergency_sos_no_confirm
+import org.meshtastic.core.resources.emergency_sos_no_position
+import org.meshtastic.core.resources.emergency_sos_phone_position
+import org.meshtastic.core.resources.emergency_sos_sent_count
+import org.meshtastic.core.resources.emergency_sos_stop
 import org.meshtastic.core.resources.emergency_sos_hold
 import org.meshtastic.core.resources.emergency_sos_label
 import org.meshtastic.core.resources.emergency_state_connected
@@ -117,6 +129,9 @@ import org.meshtastic.core.model.QuickChatAction
 import org.meshtastic.core.ui.viewmodel.ConnectionsViewModel
 import org.meshtastic.feature.connections.EmergencyViewModel
 import org.meshtastic.feature.connections.ScannerViewModel
+import org.meshtastic.feature.connections.SosPosition
+import org.meshtastic.feature.connections.SosState
+import org.meshtastic.feature.connections.SosViewModel
 import org.meshtastic.proto.Config
 
 /** Strong red for the SOS button. Fixed (not themed) so the button reads the same in light and dark. */
@@ -126,8 +141,8 @@ private const val SOS_HOLD_MILLIS = 3000
 
 /**
  * Smartlab LoRa Emergency home: link status, SOS button, check-in and radio summary, laid out like the approved
- * mockup. **Version 1 shows real connection, region, preset and battery data; the SOS button and the check-in are
- * clearly marked "coming soon" and do not send anything yet**, so nobody is misled about what the app does.
+ * mockup. The SOS button needs a board connected: held for 3 s it starts a 5 s countdown (cancellable), then sends a
+ * text message on the S.O.S. channel and repeats it until cancelled (see [SosViewModel]).
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -139,6 +154,7 @@ fun EmergencyScreen(
     connectionsViewModel: ConnectionsViewModel = koinViewModel(),
     scanModel: ScannerViewModel = koinViewModel(),
     emergencyViewModel: EmergencyViewModel = koinViewModel(),
+    sosViewModel: SosViewModel = koinViewModel(),
 ) {
     val connectionState by connectionsViewModel.connectionState.collectAsStateWithLifecycle()
     val ourNode by connectionsViewModel.ourNodeForDisplay.collectAsStateWithLifecycle()
@@ -146,7 +162,8 @@ fun EmergencyScreen(
     val transport by scanModel.activeTransport.collectAsStateWithLifecycle()
     val quickMessages by emergencyViewModel.quickMessages.collectAsStateWithLifecycle()
 
-    var showSosPreview by remember { mutableStateOf(false) }
+    val sosState by sosViewModel.state.collectAsStateWithLifecycle()
+    val haptic = LocalHapticFeedback.current
     var pendingQuick by remember { mutableStateOf<QuickChatAction?>(null) }
 
     val connected = connectionState is ConnectionState.Connected
@@ -225,9 +242,25 @@ fun EmergencyScreen(
 
         // SOS
         Box(Modifier.fillMaxWidth().padding(vertical = 6.dp), contentAlignment = Alignment.Center) {
-            SosButton(onTriggered = { showSosPreview = true })
+            SosButton(
+                onTriggered = {
+                    if (connected && sosState is SosState.Idle) {
+                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                        sosViewModel.start()
+                    }
+                },
+            )
         }
-        ComingSoonTag(Modifier.align(Alignment.CenterHorizontally))
+        if (!connected && sosState is SosState.Idle) {
+            Text(
+                text = stringResource(Res.string.emergency_sos_need_board),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth(),
+            )
+        }
+        (sosState as? SosState.Active)?.let { active -> SosActiveCard(active, onStop = { sosViewModel.cancel() }) }
 
         // Quick messages: manual, one tap plus a confirmation. Set up from the app (same list as the quick chat editor).
         InfoCard {
@@ -313,15 +346,73 @@ fun EmergencyScreen(
         )
     }
 
-    if (showSosPreview) {
+    (sosState as? SosState.Countdown)?.let { countdown ->
+        LaunchedEffect(countdown.secondsLeft) { haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove) }
         AlertDialog(
-            onDismissRequest = { showSosPreview = false },
-            title = { Text(stringResource(Res.string.emergency_sos_dialog_title)) },
-            text = { Text(stringResource(Res.string.emergency_sos_dialog_text)) },
+            onDismissRequest = {},
+            title = { Text(stringResource(Res.string.emergency_sos_countdown_title, countdown.secondsLeft)) },
+            text = { Text(stringResource(Res.string.emergency_sos_countdown_text)) },
             confirmButton = {
-                TextButton(onClick = { showSosPreview = false }) { Text(stringResource(Res.string.emergency_ok)) }
+                Button(onClick = { sosViewModel.cancel() }, modifier = Modifier.fillMaxWidth()) {
+                    Text(stringResource(Res.string.emergency_sos_cancel), fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                }
             },
         )
+    }
+
+    if (sosState is SosState.NoChannel) {
+        AlertDialog(
+            onDismissRequest = { sosViewModel.dismissNotice() },
+            text = { Text(stringResource(Res.string.emergency_sos_no_channel)) },
+            confirmButton = { TextButton(onClick = { sosViewModel.dismissNotice() }) { Text("OK") } },
+        )
+    }
+}
+
+/** Card shown while the SOS is on: what has been done and what is known, with the big stop button. */
+@Composable
+private fun SosActiveCard(active: SosState.Active, onStop: () -> Unit) {
+    Surface(
+        shape = RoundedCornerShape(14.dp),
+        color = SosRed.copy(alpha = 0.18f),
+        border = BorderStroke(2.dp, SosRed),
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text(
+                text = stringResource(Res.string.emergency_sos_active),
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold,
+                color = SosRed,
+            )
+            Text(
+                text = stringResource(Res.string.emergency_sos_sent_count, active.sent),
+                style = MaterialTheme.typography.bodyMedium,
+            )
+            Text(
+                text =
+                if (active.heardByOthers) {
+                    stringResource(Res.string.emergency_sos_heard)
+                } else {
+                    stringResource(Res.string.emergency_sos_no_confirm)
+                },
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.SemiBold,
+            )
+            when (active.position) {
+                SosPosition.NONE ->
+                    Text(stringResource(Res.string.emergency_sos_no_position), style = MaterialTheme.typography.bodySmall)
+                SosPosition.PHONE ->
+                    Text(stringResource(Res.string.emergency_sos_phone_position), style = MaterialTheme.typography.bodySmall)
+                SosPosition.BOARD -> Unit
+            }
+            if (active.failed) {
+                Text(stringResource(Res.string.emergency_sos_failed), style = MaterialTheme.typography.bodySmall)
+            }
+            Button(onClick = onStop, modifier = Modifier.fillMaxWidth()) {
+                Text(stringResource(Res.string.emergency_sos_stop))
+            }
+        }
     }
 }
 
@@ -355,23 +446,6 @@ private fun StatusChip(text: String, active: Boolean, modifier: Modifier = Modif
             color = MaterialTheme.colorScheme.surfaceContainer,
             border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
             content = content,
-        )
-    }
-}
-
-@Composable
-private fun ComingSoonTag(modifier: Modifier = Modifier) {
-    Surface(
-        modifier = modifier,
-        shape = RoundedCornerShape(6.dp),
-        color = MaterialTheme.colorScheme.secondaryContainer,
-        contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-    ) {
-        Text(
-            text = stringResource(Res.string.emergency_coming_soon),
-            style = MaterialTheme.typography.labelMedium,
-            fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
         )
     }
 }
